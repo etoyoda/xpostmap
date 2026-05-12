@@ -10,6 +10,9 @@ mm=$2
 dd=$3
 hh=$4
 
+pubdir=/nwp/p3
+test -d $pubdir
+
 cd $(dirname $0)
 source venv/bin/activate
 
@@ -21,7 +24,7 @@ url=https://toyoda-eizi.net/nwp/p2/${yy}-${mm}-${dd}T${hh}Z-plot/${bn}.html
 png=${bn}.png
 npx playwright screenshot --wait-for-timeout=3000 ${url} ${png}
 ln -f ${png} surface.png
-mv ${png} /var/www/html/2026
+mv ${png} ${pubdir}
 
 bn=p500plot${yy}-${mm}-${dd}T${hh}Z
 
@@ -29,7 +32,9 @@ url=https://toyoda-eizi.net/nwp/p2/${yy}-${mm}-${dd}T${hh}Z-plot/${bn}.html
 png=${bn}.png
 npx playwright screenshot --wait-for-timeout=3000 ${url} ${png}
 ln -f ${png} upper.png
-mv ${png} /var/www/html/2026
+mv ${png} ${pubdir}
 
 export XPOST_TITLE="${yy}${mm}${dd}T${hh}Z 地上・高層実況"
 venv/bin/python3 post.py
+
+find ${pubdir} -name '*.png' -ctime +7 -print0 | xargs -0 -n 100 rm -f

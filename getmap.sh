@@ -10,7 +10,7 @@ mm=$2
 dd=$3
 hh=$4
 
-pubdir=/nwp/p3
+pubdir=/nwp/u3
 test -d $pubdir
 
 cd $(dirname $0)
@@ -21,18 +21,18 @@ rm -f surface.png upper.png
 bn=sfcplot${yy}-${mm}-${dd}T${hh}Z
 
 url=https://toyoda-eizi.net/nwp/p2/${yy}-${mm}-${dd}T${hh}Z-plot/${bn}.html
-png=${bn}.png
+png=${pubdir}/${bn}.png
+rm -f ${png}
 npx playwright screenshot --wait-for-timeout=3000 ${url} ${png}
-ln -f ${png} surface.png
-mv ${png} ${pubdir}
+export SFC_FILE=$png
 
 bn=p500plot${yy}-${mm}-${dd}T${hh}Z
 
 url=https://toyoda-eizi.net/nwp/p2/${yy}-${mm}-${dd}T${hh}Z-plot/${bn}.html
-png=${bn}.png
+png=${pubdir}/${bn}.png
+rm -f ${png}
 npx playwright screenshot --wait-for-timeout=3000 ${url} ${png}
-ln -f ${png} upper.png
-mv ${png} ${pubdir}
+export P500_FILE=$png
 
 export XPOST_TITLE="${yy}${mm}${dd}T${hh}Z 地上・高層実況"
 venv/bin/python3 post.py

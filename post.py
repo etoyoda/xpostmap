@@ -9,6 +9,8 @@ CONSUMER_KEY = os.environ["CONSUMER_KEY"]
 CONSUMER_SECRET = os.environ["CONSUMER_SECRET"]
 ACCESS_TOKEN = os.environ["ACCESS_TOKEN"]
 ACCESS_TOKEN_SECRET = os.environ["ACCESS_TOKEN_SECRET"]
+SFC_FILE = os.environ["SFC_FILE"]
+P500_FILE = os.environ["P500_FILE"]
 XPOST_TITLE = os.environ["XPOST_TITLE"]
 
 auth = OAuth1(
@@ -42,8 +44,8 @@ def upload_image(filename):
 # 画像をアップロード
 #
 media_ids = [
-    upload_image("surface.png"),
-    upload_image("upper.png")
+    upload_image(SFC_FILE),
+    upload_image(P500_FILE)
 ]
 
 #

@@ -1,3 +1,6 @@
+auth.sh
+auth-real.sh
+/venv/
 *.gem
 *.rbc
 /.config

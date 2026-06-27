@@ -33,8 +33,8 @@ def upload_image(filename):
             files={"media": f}
         )
 
-    print(response.status_code)
-    print(response.text)
+    #print(response.status_code)
+    #print(response.text)
 
     response.raise_for_status()
 
@@ -66,7 +66,9 @@ response = requests.post(
     json=payload
 )
 
-print(response.status_code)
-print(response.text)
+#print(response.status_code)
+#print(response.text)
 
 response.raise_for_status()
+tweet_id = response.json()["data"]["id"]
+print(f"https://x.com/i/status/{tweet_id}")

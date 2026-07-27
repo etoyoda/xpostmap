@@ -36,7 +36,7 @@ else
 fi
 convert -density 300 ${png}.pdf ${png}
 rm -f ${png}.pdf
-export P500_FILE=$png
+export SFC_FILE=$png
 
 bn=tyfcst${yy}-${mm}-${dd}T${hh}Z
 
@@ -44,7 +44,7 @@ url='https://www.jma.go.jp/bosai/map.html#contents=typhoon&typhoon=all'
 png=${pubdir}/${bn}.png
 rm -f ${png}
 npx playwright screenshot --wait-for-timeout=3000 "${url}" ${png} > /dev/null
-export SFC_FILE=$png
+export P500_FILE=$png
 
 export XPOST_TITLE="${yy}${mm}${dd}T${hh}Z GEPS熱帯低気圧渦変数。利用上の留意点は配信資料に関する仕様No.11906を参照"
 TWURL=$(venv/bin/python3 post.py)

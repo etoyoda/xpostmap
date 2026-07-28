@@ -46,7 +46,7 @@ rm -f ${png}
 npx playwright screenshot --wait-for-timeout=3000 "${url}" ${png} > /dev/null
 export SFC_FILE=$png
 
-export XPOST_TITLE="${yy}${mm}${dd}T${hh}Z GEPS熱帯低気圧渦変数。利用上の留意点は配信資料に関する仕様No.11906を参照"
+export XPOST_TITLE="${yy}${mm}${dd}T${hh}Z GEPS熱帯低気圧渦変数。利用上の留意点は配信資料に関する仕様No.11906を参照。気象庁の台風予報（2枚目）とは異なることがあります"
 TWURL=$(venv/bin/python3 post.py)
 mail -r news -s "xpostmap $XPOST_TITLE" news <<MAIL
 posted - $TWURL

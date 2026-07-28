@@ -32,6 +32,7 @@ if [[ "$cursum" = "$prevsum" ]]; then
   : md5 unchanged - skip this time
   exit 0
 else
+  rm -f ${pubdir}/tytrack.md5
   echo $cursum > ${pubdir}/tytrack.md5
 fi
 convert -density 300 ${png}.pdf ${png}

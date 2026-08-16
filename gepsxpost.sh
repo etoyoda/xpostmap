@@ -58,3 +58,4 @@ mail -r news -s "xpostmap $XPOST_TITLE" news <<MAIL
 posted - $TWURL
 MAIL
 
+find ${pubdir} -name '*.pdf' -ctime +7 -print0 | xargs -0 -n 100 rm -f

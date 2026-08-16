@@ -36,6 +36,11 @@ else
   echo $cursum > ${pubdir}/tytrack.md5
 fi
 convert -density 300 ${png}.pdf ${png}
+COUNT=$(convert $png -crop 300x400+1350+1100 -threshold 80% -define histogram:unique-colors=true histogram:- | awk -F: '/white/{print $1}')
+if [ "$COUNT" -eq 120000 ]; then
+  : NO DATA PDF - skip this time
+  exit 0
+fi
 rm -f ${png}.pdf
 export SFC_FILE=$png
 

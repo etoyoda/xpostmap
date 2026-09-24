@@ -34,6 +34,11 @@ rm -f ${png}
 npx playwright screenshot --wait-for-timeout=3000 ${url} ${png} > /dev/null
 export P500_FILE=$png
 
+emag=/nwp/p2/${yy}-${mm}-${dd}T${hh}Z-ema/${yy}${mm}${dd}${hh}kanto.png
+if [[ -f ${emag} ]] ; then
+  export EMAG_FILE=$emag
+fi
+
 export XPOST_TITLE="${yy}${mm}${dd}T${hh}Z 地上・高層実況"
 TWURL=$(venv/bin/python3 post.py)
 mail -r news -s "xpostmap $XPOST_TITLE" news <<MAIL

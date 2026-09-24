@@ -11,6 +11,7 @@ ACCESS_TOKEN = os.environ["ACCESS_TOKEN"]
 ACCESS_TOKEN_SECRET = os.environ["ACCESS_TOKEN_SECRET"]
 SFC_FILE = os.environ["SFC_FILE"]
 P500_FILE = os.environ["P500_FILE"]
+EMAG_FILE = os.environ["EMAG_FILE"]
 XPOST_TITLE = os.environ["XPOST_TITLE"]
 
 auth = OAuth1(
@@ -44,9 +45,12 @@ def upload_image(filename):
 # 画像をアップロード
 #
 media_ids = [
-    upload_image(SFC_FILE),
-    upload_image(P500_FILE)
+    upload_image(SFC_FILE)
 ]
+if P500_FILE:
+    media_ids.append(upload_image(P500_FILE))
+if EMAG_FILE:
+    media_ids.append(upload_image(EMAG_FILE))
 
 #
 # 投稿

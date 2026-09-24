@@ -9,9 +9,9 @@ CONSUMER_KEY = os.environ["CONSUMER_KEY"]
 CONSUMER_SECRET = os.environ["CONSUMER_SECRET"]
 ACCESS_TOKEN = os.environ["ACCESS_TOKEN"]
 ACCESS_TOKEN_SECRET = os.environ["ACCESS_TOKEN_SECRET"]
-SFC_FILE = os.environ["SFC_FILE"]
-P500_FILE = os.environ["P500_FILE"]
-EMAG_FILE = os.environ["EMAG_FILE"]
+SFC_FILE = os.environ.get("SFC_FILE")
+P500_FILE = os.environ.get("P500_FILE")
+EMAG_FILE = os.environ.get("EMAG_FILE")
 XPOST_TITLE = os.environ["XPOST_TITLE"]
 
 auth = OAuth1(
@@ -44,13 +44,13 @@ def upload_image(filename):
 #
 # 画像をアップロード
 #
-media_ids = [
-    upload_image(SFC_FILE)
-]
-if P500_FILE:
-    media_ids.append(upload_image(P500_FILE))
-if EMAG_FILE:
-    media_ids.append(upload_image(EMAG_FILE))
+media_ids = []
+for f in (SFC_FILE, P500_FILE, EMAG_FILE):
+    if f:
+        media_ids.append(upload_image(f))
+
+if not media_ids:
+    raise RuntimeError("No image files specified (SFC_FILE, P500_FILE, EMAG_FILE)")
 
 #
 # 投稿
